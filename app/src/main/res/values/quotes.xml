@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="quotes">
+
+        <item>“All the suffering, stress and addiction comes from not realizing you already are what you are looking for.” –Jon Kabat-Zinn</item>
+        <item>“It is in your moments of decision that your destiny is shaped.” –Tony Robbins</item>
+        <item>“The secret of getting ahead is getting started.” -Mark Twain</item>
+        <item>“People often say that motivation doesn’t last. Well, neither does bathing – that’s why we recommend it daily.” -Zig Ziglar</item>
+        <item>“The surest way not to fail is to determine to succeed.” – Richard Brinsley Sheridan</item>
+        <item>“Believe you can and you’re halfway there.” -Theodore Roosevelt</item>
+        <item>“Our strength grows out of our weakness.” -Ralph Waldo Emerson</item>
+        <item>“You are greater than your addiction.” – Nasia Davos</item>
+        <item>“We are what we repeatedly do. Excellence, then, is not an act, but a habit.” – Aristotle</item>
+        <item>“Checking your ego, abandoning it, letting it go, is a huge part of recovery from addiction.” -Susannah Grant</item>
+
+    </string-array>
+
+
+</resources>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CheckIn"
+    android:background="@color/colorPrimary">
+
+
+    <TextView
+        android:id="@+id/checkInText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:fontFamily="cursive"
+        android:gravity="top"
+        android:padding="5dp"
+        android:text="@string/check_in"
+        android:textColor="#ffffff"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/checkInText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:gravity="top"
+        android:padding="10dp"
+        android:text="@string/how_much_is_a_pack_of_cigarettes"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/checkInField1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkInText1"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="numberDecimal"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#ffffff"
+        tools:text="#ffffff" />
+
+    <TextView
+        android:id="@+id/checkInText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkInField1"
+        android:layout_centerHorizontal="true"
+        android:gravity="top"
+        android:padding="10dp"
+        android:text="@string/how_many_cigarettes_are_in_a_pack"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/checkInField2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkInText2"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#ffffff"
+        tools:text="#ffffff" />
+
+    <EditText
+        android:id="@+id/checkInField3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/checkInText3"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:gravity="top"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="#ffffff"
+        tools:text="#ffffff" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="84dp"
+        android:onClick="onSubmitButton"
+        android:text="@string/submit"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/checkInText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/checkInField2"
+        android:gravity="top"
+        android:padding="10dp"
+        android:text="@string/how_many_cigarettes_do_you_smoke_a_day"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+</android.widget.RelativeLayout>

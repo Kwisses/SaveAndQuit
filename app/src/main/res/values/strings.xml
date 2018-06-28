@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">SaveAndQuit</string>
+    <string name="a"></string>
+    <string name="check_in">Check In</string>
+    <string name="reset_data">Reset Data</string>
+    <string name="extra_life">Extra Life</string>
+    <string name="money_saved">Money Saved</string>
+    <string name="_0_00">$0.00</string>
+    <string name="_0.0_Hrs">0.0 Hrs</string>
+    <string name="quote">Quote</string>
+    <string name="submit">Submit</string>
+    <string name="how_much_is_a_pack_of_cigarettes">How much is a pack of cigarettes?</string>
+    <string name="how_many_cigarettes_do_you_smoke_a_day">How many cigarettes do you smoke a day?</string>
+    <string name="how_many_cigarettes_are_in_a_pack">How many cigarettes are in a pack?</string>
+    <string name="delete_user">Delete User</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="are_you_sure_you_want_to_delete_user">Are you sure you want to delete user?</string>
+
+</resources>

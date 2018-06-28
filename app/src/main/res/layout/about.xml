@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.widget.TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/aboutTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_column="0"
+        android:layout_row="0"
+        android:padding="2dp"
+        android:text="@string/save_and_quit"
+        android:textAlignment="center"
+        android:textSize="24sp" />
+
+    <ImageView
+        android:id="@+id/kwistechLogo"
+        android:layout_width="191dp"
+        android:layout_height="100dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/aboutTitle"
+        android:layout_column="0"
+        android:layout_row="1"
+        android:contentDescription="@string/kwistech_logo"
+        android:padding="0dp"
+        app:srcCompat="@drawable/web_hi_res_512" />
+
+    <TextView
+        android:id="@+id/aboutSummary"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_column="0"
+        android:layout_row="3"
+        android:layout_toEndOf="@+id/kwistechLogo"
+        android:padding="10dp"
+        android:text="@string/aboutSummary"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/developer"
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/aboutSummary"
+        android:layout_column="0"
+        android:layout_row="3"
+        android:layout_toEndOf="@+id/kwistechLogo"
+        android:padding="10dp"
+        android:text="@string/developer"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/developer"
+        android:layout_column="0"
+        android:layout_row="4"
+        android:padding="10dp"
+        android:text="@string/copyright"
+        android:textAlignment="center" />
+
+</android.widget.TableLayout>

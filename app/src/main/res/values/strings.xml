@@ -1,7 +1,6 @@
 <resources>
 
     <string name="app_name">SaveAndQuit</string>
-    <string name="a"></string>
     <string name="check_in">Check In</string>
     <string name="reset_data">Reset Data</string>
     <string name="extra_life">Extra Life</string>
@@ -10,12 +9,17 @@
     <string name="_0.0_Hrs">0.0 Hrs</string>
     <string name="quote">Quote</string>
     <string name="submit">Submit</string>
-    <string name="how_much_is_a_pack_of_cigarettes">How much is a pack of cigarettes?</string>
-    <string name="how_many_cigarettes_do_you_smoke_a_day">How many cigarettes do you smoke a day?</string>
-    <string name="how_many_cigarettes_are_in_a_pack">How many cigarettes are in a pack?</string>
+    <string name="cigPackCost">How much is a pack of cigarettes?</string>
+    <string name="cigsPerDay">How many cigarettes do you smoke a day?</string>
+    <string name="cigsInPack">How many cigarettes are in a pack?</string>
     <string name="delete_user">Delete User</string>
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
-    <string name="are_you_sure_you_want_to_delete_user">Are you sure you want to delete user?</string>
+    <string name="deleteUserPrompt">Are you sure you want to delete user?</string>
+    <string name="aboutSummary">An Android app that helps smokers track how much time and money they save by not smoking.</string>
+    <string name="copyright">© 2018 Kwistech</string>
+    <string name="developer">Developed by: Kwistech</string>
+    <string name="save_and_quit">Save and Quit</string>
+    <string name="kwistech_logo">Kwistech logo</string>
 
 </resources>

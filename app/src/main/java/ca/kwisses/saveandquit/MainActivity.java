@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -89,6 +90,25 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.about) {
+            // Get layout references
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            View view = getLayoutInflater().inflate(R.layout.about, null);
+
+            // Set builder
+            builder.setView(view);
+            final AlertDialog dialog = builder.create();
+            dialog.show();
+
+            // Touch listener
+            view.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    dialog.dismiss();
+                    return true;
+                }
+            });
+        }
         if(item.getItemId() == R.id.delete_user) {
             // Get layout references
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);

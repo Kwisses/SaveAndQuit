@@ -16,7 +16,7 @@ Android device.
 
 # How to Use
 The app will start with a splash screen and then will proceed to the main screen.
-[![d4k8o0lk1fwmnwj4.png](https://image.frl/n9bmb)]
+![Save and Quit splash screen](https://img.frl/n9bmb)
 
 The user clicks the Check In button and then will fill out the details on the next screen.
 ![Check in Screen]()

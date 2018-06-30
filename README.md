@@ -15,8 +15,12 @@ SaveAndQuit is developed to work on Android API 27 phones.
 Android device.
 
 # How to Use
-The app will start with a splash screen and then will proceed to the main screen. The user clicks the Check In button and then will fill out the details on the next screen.
-<img src="https://image.frl/i/d4k8o0lk1fwmnwj4.png" width="250" /> <img src="https://image.frl/i/cajwjpmp8fpallrf.png" width="250" /> <img src="https://image.frl/i/p0rqgyc8i4atvq3e.png" width="250" />
+The app will start with a splash screen and then will proceed to the main screen. 
+
+The user clicks the Check In button and then will fill out the details on the next screen.
+<img src="https://image.frl/i/d4k8o0lk1fwmnwj4.png" width="250" /> 
+<img src="https://image.frl/i/cajwjpmp8fpallrf.png" width="250" /> 
+<img src="https://image.frl/i/p0rqgyc8i4atvq3e.png" width="250" />
 
 Once the information is submitted, the user can then Check in once more and the values on the main screen will be updated. The user can also delete their user account by going into the Settings and clicking Delete User.
 

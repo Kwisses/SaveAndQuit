@@ -1,4 +1,4 @@
-package ca.kwisses.saveandquit;
+package ca.kwisses.saveandquit.db_handler;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.content.Context;
 import android.content.ContentValues;
 
-public class DBHandler extends SQLiteOpenHelper{
+import ca.kwisses.saveandquit.user.User;
+
+public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Presenter {
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "users.db";

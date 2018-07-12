@@ -1,6 +1,6 @@
-package ca.kwisses.saveandquit;
+package ca.kwisses.saveandquit.user;
 
-public class User {
+public class User implements UserContract.MvpView {
 
     private int _id;
 
@@ -29,36 +29,37 @@ public class User {
         return _id;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
-    }
-
     public double getCigPackCost() {
         return cigPackCost;
     }
 
-    public void setCigPackCost(double cigPackCost) {
-        this.cigPackCost = cigPackCost;
-    }
 
     public int getCigsInPack() {
         return cigsInPack;
-    }
-
-    public void setCigsInPack(int cigsInPack) {
-        this.cigsInPack = cigsInPack;
     }
 
     public int getCigsPerDay() {
         return cigsPerDay;
     }
 
-    public void setCigsPerDay(int cigsPerDay) {
-        this.cigsPerDay = cigsPerDay;
-    }
-
     public int getDays() {
         return days;
+    }
+
+    public void set_id(int _id) {
+        this._id = _id;
+    }
+
+    public void setCigPackCost(double cigPackCost) {
+        this.cigPackCost = cigPackCost;
+    }
+
+    public void setCigsInPack(int cigsInPack) {
+        this.cigsInPack = cigsInPack;
+    }
+
+    public void setCigsPerDay(int cigsPerDay) {
+        this.cigsPerDay = cigsPerDay;
     }
 
     public void setDays(int days) {

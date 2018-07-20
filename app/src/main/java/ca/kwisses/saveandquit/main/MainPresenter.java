@@ -8,6 +8,7 @@ import android.widget.Toast;
 import android.view.View;
 
 import java.util.Arrays;
+import java.util.Random;
 
 import ca.kwisses.saveandquit.check_in.CheckInActivity;
 import ca.kwisses.saveandquit.db_handler.DBHandler;
@@ -57,7 +58,14 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void loadUser() {
+    public String getQuoteTextFromFile() {
+        String[] array = context.getResources().getStringArray(R.array.quotes);
+        int n = new Random().nextInt(array.length);
+        return array[n];
+    }
+
+    @Override
+    public void loadUser(DBHandler dbHandler) {
         String[] nullArray = {null, null, null, null, null};
         int[] intArray = {0, 0, 0, 0, 0};
 
@@ -72,8 +80,8 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void setDBHandler() {
-        dbHandler = new DBHandler(context, null, null, 1);
+    public void setDBHandler(DBHandler dbHandler) {
+        this.dbHandler = dbHandler;
     }
 
     @Override

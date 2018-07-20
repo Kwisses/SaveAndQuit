@@ -12,20 +12,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Random;
-
 import ca.kwisses.saveandquit.R;
+import ca.kwisses.saveandquit.db_handler.DBHandler;
 import ca.kwisses.saveandquit.user.User;
 
 public class MainActivity extends AppCompatActivity implements MainContract.MvpView {
 
     public static MainPresenter mainPresenter;
 
+    public DBHandler dbHandler;
+
     // UI Elements
-    private static TextView quoteText;
-    private static TextView moneySavedField;
-    private static TextView extraLifeField;
+    private TextView quoteText;
+    private TextView moneySavedField;
+    private TextView extraLifeField;
     private Context context;
+    private View view;
     public Menu menu;
 
     // Constants
@@ -35,42 +37,66 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
     public static User user;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context = this;
 
-        // Presenter method calls
-        mainPresenter = new MainPresenter(this, this);
-        mainPresenter.setDBHandler();
-        mainPresenter.init(findViewById(android.R.id.content));
-        mainPresenter.loadUser();
-        mainPresenter.getUserData();
+        context = this;
+        view = findViewById(android.R.id.content);
+
+        // Set presenter calls
+        createDBHandler();
+        createMainPresenter(view);
+        setMainPresenter(mainPresenter);
 
         // View method calls
-        init();
-        setQuoteText();
+        init(mainPresenter);
+        setQuoteText(mainPresenter.getQuoteTextFromFile());
         setDisplayText(mainPresenter.moneySaved, mainPresenter.extraLife);
     }
 
     @Override
-    public void init() {
+    public void init(MainPresenter mainPresenter) {
         quoteText = mainPresenter.quoteText;
         moneySavedField = mainPresenter.moneySavedField;
         extraLifeField = mainPresenter.extraLifeField;
     }
 
-    public void setQuoteText() {
-        String[] array = this.getResources().getStringArray(R.array.quotes);
-        int n = new Random().nextInt(array.length);
-        quoteText.setText(array[n]);
+    @Override
+    public void createDBHandler() {
+        this.dbHandler = new DBHandler(context, null, null, 1);
     }
 
+    @Override
+    public void setDBHandler(DBHandler dbHandler) {
+        this.dbHandler = dbHandler;
+    }
+
+    @Override
+    public void createMainPresenter(View view) {
+        this.mainPresenter = new MainPresenter(this, this);
+        this.mainPresenter.setDBHandler(dbHandler);
+        this.mainPresenter.init(view);
+    }
+
+    @Override
+    public void setMainPresenter(MainPresenter mainPresenter) {
+        mainPresenter.loadUser(dbHandler);
+        mainPresenter.getUserData();
+    }
+
+    @Override
+    public void setQuoteText(String text) {
+        quoteText.setText(text);
+    }
+
+    @Override
     public void setDisplayText(double moneySaved, double extraLife) {
         moneySavedField.setText("$" + String.format("%.2f", moneySaved));
         extraLifeField.setText(String.format("%.1f", extraLife) + " Hrs");
     }
 
+    @Override
     public void onCheckInButton(View view) {
         mainPresenter.onCheckInButton(view);
     }
@@ -82,64 +108,93 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
     }
 
     @Override
+    public void handleAboutMenuItem() {
+        // Get layout references
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.about, null);
+
+        // Set builder
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Touch listener
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                dialog.dismiss();
+                return true;
+            }
+        });
+    }
+
+    @Override
+    public void handleDeleteMenuItem() {
+        // Get layout references
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.delete_user, null);
+        Button cancelButton = view.findViewById(R.id.cancelButton);
+        Button confirmButton = view.findViewById(R.id.confirmButton);
+
+        // Set builder
+        builder.setView(view);
+        final AlertDialog dialog = builder.create();
+        dialog.show();
+
+        // Button listeners
+        cancelButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        setDeleteUserOnClickListener(dialog, confirmButton);
+    }
+
+    @Override
+    public void setDeleteUserOnClickListener(AlertDialog dialog, Button button) {
+        final AlertDialog dialog1 = dialog;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "Deleted user!", Toast.LENGTH_LONG).show();
+
+                mainPresenter.getDBHandler().deleteUser(user);
+                user = new User(intArray);
+                mainPresenter.getDBHandler().addUser(user);
+
+                mainPresenter.resetData();
+                setDisplayText(mainPresenter.moneySaved, mainPresenter.extraLife);
+
+                mainPresenter.checkInButton.setEnabled(true);
+                dialog1.dismiss();
+            }
+        });
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.about) {
-            // Get layout references
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            View view = getLayoutInflater().inflate(R.layout.about, null);
-
-            // Set builder
-            builder.setView(view);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            // Touch listener
-            view.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    dialog.dismiss();
-                    return true;
-                }
-            });
+            handleAboutMenuItem();
         }
         if(item.getItemId() == R.id.delete_user) {
-            // Get layout references
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-            View view = getLayoutInflater().inflate(R.layout.delete_user, null);
-            Button cancelButton = view.findViewById(R.id.cancelButton);
-            Button confirmButton = view.findViewById(R.id.confirmButton);
-
-            // Set builder
-            builder.setView(view);
-            final AlertDialog dialog = builder.create();
-            dialog.show();
-
-            // Button listeners
-            cancelButton.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    dialog.dismiss();
-                }
-            });
-
-            // Deletes user
-            confirmButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(context, "Deleted user!", Toast.LENGTH_LONG).show();
-
-                    mainPresenter.getDBHandler().deleteUser(user);
-                    user = new User(intArray);
-                    mainPresenter.getDBHandler().addUser(user);
-
-                    mainPresenter.resetData();
-                    setDisplayText(mainPresenter.moneySaved, mainPresenter.extraLife);
-
-                    mainPresenter.checkInButton.setEnabled(true);
-                    dialog.dismiss();
-                }
-            });
+            handleDeleteMenuItem();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // Getters and Setters
+
+    public TextView getQuoteText() {
+        return quoteText;
+    }
+
+    public TextView getMoneySavedField() {
+        return moneySavedField;
+    }
+
+    public TextView getExtraLifeField() {
+        return extraLifeField;
     }
 }

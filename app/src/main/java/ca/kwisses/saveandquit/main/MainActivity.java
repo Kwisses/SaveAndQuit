@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
     private TextView moneySavedField;
     private TextView extraLifeField;
     private Context context;
-    private View view;
+    public View view;
     public Menu menu;
 
     // Constants
@@ -164,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
                 user = new User(intArray);
                 mainPresenter.getDBHandler().addUser(user);
 
-                mainPresenter.resetData();
+                mainPresenter.resetAllData();
                 setDisplayText(mainPresenter.moneySaved, mainPresenter.extraLife);
 
                 mainPresenter.checkInButton.setEnabled(true);

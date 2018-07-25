@@ -1,10 +1,10 @@
 package ca.kwisses.saveandquit.db_handler;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.Cursor;
-import android.content.Context;
-import android.content.ContentValues;
 
 import ca.kwisses.saveandquit.user.User;
 
@@ -20,8 +20,11 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
     private final String CIGSPERDAY = "_cigsPerDay";
     private final String DAYS = "_days";
 
+    private String[] userData;
+
     public DBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
+        userData = new String[5];
     }
 
     @Override
@@ -42,25 +45,35 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
     }
 
     public void addUser(User user) {
-        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, user.get_id());
         values.put(CIGPACKCOST, user.getCigPackCost());
         values.put(CIGSINPACK, user.getCigsInPack());
         values.put(CIGSPERDAY, user.getCigsPerDay());
         values.put(DAYS, user.getDays());
-        db.insert(TABLE_NAME, null, values);
-        db.close();
+
+        try(SQLiteDatabase db = getReadableDatabase()) {
+            db.insert(TABLE_NAME, null, values);
+        } catch (NullPointerException e) {
+            throw new NullPointerException();
+        }
     }
 
     public void deleteUser(User user) {
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = \"" + user.get_id() + "\";");
+        if(db != null) {
+            db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = \"" + user.get_id() + "\";");
+        }
     }
 
-    public String[] getUserData() {
-        String[] userData = new String[5];
+    public String[] getUserDataFromDatabase() {
+        String[] data = new String[5];
         SQLiteDatabase db = getWritableDatabase();
+
+        if(db == null) {
+            return data;
+        }
+
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE 1";
 
         // Cursor point to a location in your results
@@ -69,24 +82,34 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
 
         while(!c.isAfterLast()) {
             if(c.getString(c.getColumnIndex(COLUMN_ID)) != null) {
-                userData[0] = c.getString(c.getColumnIndex(COLUMN_ID));
+                data[0] = c.getString(c.getColumnIndex(COLUMN_ID));
             }
             if(c.getString(c.getColumnIndex(CIGPACKCOST)) != null) {
-                userData[1] = c.getString(c.getColumnIndex(CIGPACKCOST));
+                data[1] = c.getString(c.getColumnIndex(CIGPACKCOST));
             }
             if(c.getString(c.getColumnIndex(CIGSINPACK)) != null) {
-                userData[2] = c.getString(c.getColumnIndex(CIGSINPACK));
+                data[2] = c.getString(c.getColumnIndex(CIGSINPACK));
             }
             if(c.getString(c.getColumnIndex(CIGSPERDAY)) != null) {
-                userData[3] = c.getString(c.getColumnIndex(CIGSPERDAY));
+                data[3] = c.getString(c.getColumnIndex(CIGSPERDAY));
             }
             if(c.getString(c.getColumnIndex(DAYS)) != null) {
-                userData[4] = c.getString(c.getColumnIndex(DAYS));
+                data[4] = c.getString(c.getColumnIndex(DAYS));
             }
             c.moveToNext();
         }
 
         db.close();
-        return userData;
+        return data;
+    }
+
+    @Override
+    public void setUserData(String[] userData) {
+        this.userData = userData;
+    }
+
+    @Override
+    public String[] getUserData() {
+        return this.userData;
     }
 }

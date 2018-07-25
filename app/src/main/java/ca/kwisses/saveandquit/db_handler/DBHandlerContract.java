@@ -10,6 +10,10 @@ public interface DBHandlerContract {
         void deleteUser(User user);
 
         String[] getUserData();
+
+        String[] getUserDataFromDatabase();
+
+        void setUserData(String[] userData);
     }
 
 }

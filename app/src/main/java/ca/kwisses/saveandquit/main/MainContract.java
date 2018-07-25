@@ -3,6 +3,7 @@ package ca.kwisses.saveandquit.main;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import ca.kwisses.saveandquit.db_handler.DBHandler;
 
@@ -41,16 +42,48 @@ public interface MainContract {
 
         void loadUser(DBHandler dbHandler);
 
-        void setDBHandler(DBHandler dbHandler);
+        void createNewUser(DBHandler dbHandler);
+
+        String[] getUserData();
+
+        void parseUserData(String[] userData);
+
+        void setUser();
+
+        void setCalculations();
+
+        void resetAllData();
+
+        void resetUserData();
+
+        void resetCalculations();
+
+        void updateUser();
+
+        void setPresenterData();
+
+        void onCheckInButton(View view);
 
         DBHandler getDBHandler();
 
-        void getUserData();
+        void setDBHandler(DBHandler dbHandler);
 
-        void setMainData();
+        void setUserData(String[] userData);
 
-        void resetData();
+        void setQuoteText(TextView textView);
 
-        void onCheckInButton(View view);
+        void setMoneySavedField(TextView textView);
+
+        void setExtraLifeField(TextView textView);
+
+        void setCheckInButton(Button button);
+
+        void setCigPackCost(double cigPackCost);
+
+        void setCigsInPack(int cigsInPack);
+
+        void setCigsPerDay(int cigsPerDay);
+
+        void setDays(int days);
     }
 }

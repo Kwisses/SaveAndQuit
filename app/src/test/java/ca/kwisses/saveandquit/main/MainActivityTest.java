@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import ca.kwisses.saveandquit.R;
 import ca.kwisses.saveandquit.db_handler.DBHandler;
@@ -18,6 +20,7 @@ import static junit.framework.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MainActivityTest {
 
     MainActivity mainActivity;

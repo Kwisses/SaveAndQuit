@@ -3,6 +3,7 @@ package ca.kwisses.saveandquit.db_handler;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -30,12 +31,12 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
     @Override
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " + TABLE_NAME + "(" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                 CIGPACKCOST + " TEXT, " +
                 CIGSINPACK + " TEXT, " +
                 CIGSPERDAY + " TEXT, " +
                 DAYS + " TEXT " + ");";
-        db.execSQL(query);
+        executeQuery(db, query);
     }
 
     @Override
@@ -44,13 +45,35 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
         onCreate(db);
     }
 
-    public void addUser(User user) {
+    @Override
+    public boolean executeQuery(SQLiteDatabase db, String query) {
+        try {
+            if(query.length() > 0) {
+                db.execSQL(query);
+                return true;
+            }
+            return false;
+        } catch(SQLException e) {
+            throw new SQLException();
+        } catch(NullPointerException e) {
+            throw new NullPointerException();
+        }
+    }
+
+    @Override
+    public ContentValues getContentValues(User user) {
         ContentValues values = new ContentValues();
         values.put(COLUMN_ID, user.get_id());
         values.put(CIGPACKCOST, user.getCigPackCost());
         values.put(CIGSINPACK, user.getCigsInPack());
         values.put(CIGSPERDAY, user.getCigsPerDay());
         values.put(DAYS, user.getDays());
+        return values;
+    }
+
+    @Override
+    public void addUser(User user) {
+        ContentValues values = getContentValues(user);
 
         try(SQLiteDatabase db = getReadableDatabase()) {
             db.insert(TABLE_NAME, null, values);
@@ -59,20 +82,26 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
         }
     }
 
+    @Override
     public void deleteUser(User user) {
-        SQLiteDatabase db = getWritableDatabase();
-        if(db != null) {
-            db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = \"" + user.get_id() + "\";");
+        try (SQLiteDatabase db = getWritableDatabase()) {
+            String query = "DELETE FROM " + TABLE_NAME +
+                    " WHERE " + COLUMN_ID + " = \"" + user.get_id() + "\";";
+            db.execSQL(query);
+        } catch (SQLException e) {
+            throw new SQLException();
         }
     }
 
+    @Override
+    public String[] getUserData() {
+        return this.userData;
+    }
+
+    @Override
     public String[] getUserDataFromDatabase() {
         String[] data = new String[5];
         SQLiteDatabase db = getWritableDatabase();
-
-        if(db == null) {
-            return data;
-        }
 
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE 1";
 
@@ -106,10 +135,5 @@ public class DBHandler extends SQLiteOpenHelper implements DBHandlerContract.Pre
     @Override
     public void setUserData(String[] userData) {
         this.userData = userData;
-    }
-
-    @Override
-    public String[] getUserData() {
-        return this.userData;
     }
 }

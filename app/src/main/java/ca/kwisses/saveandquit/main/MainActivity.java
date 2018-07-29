@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
     public Menu menu;
 
     // Constants
-    private final int[] intArray = {0, 0, 0, 0, 0};
+    private final int[] intArray = {1, 0, 0, 0, 0};
 
     // App Objects
     public static User user;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
     @Override
     public void createDBHandler() {
-        this.dbHandler = new DBHandler(context, null, null, 1);
+        dbHandler = new DBHandler(context, null, null, 1);
     }
 
     @Override
@@ -74,14 +74,14 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
 
     @Override
     public void createMainPresenter(View view) {
-        this.mainPresenter = new MainPresenter(this, this);
-        this.mainPresenter.setDBHandler(dbHandler);
-        this.mainPresenter.init(view);
+        mainPresenter = new MainPresenter(this, this);
+        mainPresenter.setDBHandler(dbHandler);
+        mainPresenter.init(view);
     }
 
     @Override
     public void setMainPresenter(MainPresenter mainPresenter) {
-        mainPresenter.loadUser(dbHandler);
+        mainPresenter.loadUser();
         mainPresenter.getUserData();
     }
 

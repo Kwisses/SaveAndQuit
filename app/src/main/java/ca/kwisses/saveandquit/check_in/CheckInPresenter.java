@@ -3,7 +3,6 @@ package ca.kwisses.saveandquit.check_in;
 import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import ca.kwisses.saveandquit.R;
 import ca.kwisses.saveandquit.db_handler.DBHandler;
@@ -59,7 +58,7 @@ public class CheckInPresenter implements CheckInContract.Presenter {
     public void updateDBHander() {
         DBHandler dbHandler = MainActivity.mainPresenter.getDBHandler();
         dbHandler.deleteUser(MainActivity.user); // delete user
-        MainActivity.user = new User(0, cigPackCost, cigsInPack, cigsPerDay, days);
+        MainActivity.user = new User(1, cigPackCost, cigsInPack, cigsPerDay, days);
         dbHandler.addUser(MainActivity.user);
     }
 }

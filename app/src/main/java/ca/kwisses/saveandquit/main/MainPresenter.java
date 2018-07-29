@@ -65,10 +65,10 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void loadUser(DBHandler dbHandler) {
+    public void loadUser() {
         String[] nullArray = {null, null, null, null, null};
         try {
-            String[] dbArray = dbHandler.getUserData();
+            String[] dbArray = dbHandler.getUserDataFromDatabase();
             if(Arrays.equals(dbArray, nullArray)) {
                 createNewUser(dbHandler);
             } else {
@@ -84,7 +84,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void createNewUser(DBHandler dbHandler) {
-        int[] intArray = {0, 0, 0, 0, 0};
+        int[] intArray = {1, 0, 0, 0, 0};
         MainActivity.user = new User(intArray);
         try {
             dbHandler.addUser(MainActivity.user);
@@ -98,7 +98,7 @@ public class MainPresenter implements MainContract.Presenter {
         String[] data;
 
         try {
-            data = dbHandler.getUserData();
+            data = dbHandler.getUserDataFromDatabase();
         } catch (NullPointerException e) {
             throw new NullPointerException();
         }
@@ -116,7 +116,7 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void setUser() {
-        MainActivity.user = new User(0, cigPackCost, cigsInPack, cigsPerDay, days);
+        MainActivity.user = new User(1, cigPackCost, cigsInPack, cigsPerDay, days);
     }
 
 
@@ -158,7 +158,7 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void updateUser() {
         dbHandler.deleteUser(MainActivity.user);
-        MainActivity.user = new User(0, cigPackCost, cigsInPack, cigsPerDay, days + 1);
+        MainActivity.user = new User(1, cigPackCost, cigsInPack, cigsPerDay, days + 1);
         dbHandler.addUser(MainActivity.user);
     }
 
@@ -171,9 +171,12 @@ public class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void onCheckInButton(View view) {
-        String[] strArray = {"0", "0.0", "0", "0", "0"};
+        String[] strArray = {"1", "0.0", "0", "0", "0"};
+        printArray(strArray);
+        printArray(dbHandler.getUserDataFromDatabase());
+        System.out.println(MainActivity.user.get_id());
 
-        if(!Arrays.equals(dbHandler.getUserData(), strArray)) {
+        if(!Arrays.equals(dbHandler.getUserDataFromDatabase(), strArray)) {
             if(context != null) {
                 Toast.makeText(context, "Successfully checked in!", Toast.LENGTH_LONG).show();
             }
@@ -187,6 +190,13 @@ public class MainPresenter implements MainContract.Presenter {
             Intent i = new Intent(context, CheckInActivity.class);
             context.startActivity(i);
         }
+    }
+
+    public void printArray(String[] array) {
+        for(int i=0; i < array.length; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
     }
 
     // Getters and Setters

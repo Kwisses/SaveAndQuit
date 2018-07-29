@@ -56,15 +56,15 @@ public class MainPresenterTest {
     @Test
     public void loadUser_CallsMethod_CalledMethod() {
         DBHandler dbHandler = mock(DBHandler.class);
-        mainPresenter.loadUser(dbHandler);
-        verify(mainPresenter).loadUser(dbHandler);
+        mainPresenter.loadUser();
+        verify(mainPresenter).loadUser();
     }
 
     @Test(expected=NullPointerException.class)
     public void loadUser_dbHandlerIsNull_ThrowsNullPointerException() {
         MainPresenter mainPresenter1 = new MainPresenter(null, null);
         DBHandler dbHandler = null;
-        mainPresenter1.loadUser(dbHandler);
+        mainPresenter1.loadUser();
     }
 
     @Test

@@ -40,7 +40,7 @@ public interface MainContract {
 
         String getQuoteTextFromFile();
 
-        void loadUser(DBHandler dbHandler);
+        void loadUser();
 
         void createNewUser(DBHandler dbHandler);
 

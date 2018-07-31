@@ -172,9 +172,6 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void onCheckInButton(View view) {
         String[] strArray = {"1", "0.0", "0", "0", "0"};
-        printArray(strArray);
-        printArray(dbHandler.getUserDataFromDatabase());
-        System.out.println(MainActivity.user.get_id());
 
         if(!Arrays.equals(dbHandler.getUserDataFromDatabase(), strArray)) {
             if(context != null) {
@@ -190,13 +187,6 @@ public class MainPresenter implements MainContract.Presenter {
             Intent i = new Intent(context, CheckInActivity.class);
             context.startActivity(i);
         }
-    }
-
-    public void printArray(String[] array) {
-        for(int i=0; i < array.length; i++) {
-            System.out.print(array[i] + " ");
-        }
-        System.out.println();
     }
 
     // Getters and Setters

@@ -1,17 +1,16 @@
 package ca.kwisses.saveandquit.splash_screen;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 public class SplashScreenActivityTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
     @Test
-    public void onCreate() {
+    public void onCreate_CallsMethod_CalledMethod() {
+        SplashScreenActivity mockSplashScreenActivity = mock(SplashScreenActivity.class);
+        mockSplashScreenActivity.onCreate(null);
+        verify(mockSplashScreenActivity).onCreate(null);
     }
 }

@@ -17,9 +17,10 @@ public class CheckInActivity extends AppCompatActivity implements CheckInContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_in);
-        checkInPresenter = new CheckInPresenter(this, this);
+        setCheckInPresenter(new CheckInPresenter(this));
     }
 
+    @Override
     public void onSubmitButton(View view) {
         checkInPresenter.init(findViewById(android.R.id.content));
 
@@ -32,5 +33,15 @@ public class CheckInActivity extends AppCompatActivity implements CheckInContrac
         } else {
             Toast.makeText(this, "Please fill out all fields!", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public CheckInPresenter getCheckInPresenter() {
+        return checkInPresenter;
+    }
+
+    @Override
+    public void setCheckInPresenter(CheckInPresenter checkInPresenter) {
+        this.checkInPresenter = checkInPresenter;
     }
 }

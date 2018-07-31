@@ -8,9 +8,11 @@ import ca.kwisses.saveandquit.main.MainActivity;
 
 public class SplashScreenPresenter implements SplashScreenContract.Presenter {
 
+    Thread thread;
+
     @Override
-    public void run(final Context context) throws InterruptedException {
-        Thread myThread = new Thread() {
+    public void run(final Context context) {
+        thread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -19,14 +21,15 @@ public class SplashScreenPresenter implements SplashScreenContract.Presenter {
                     context.startActivity(intent);
                     ((Activity) context).finish();
                 } catch (InterruptedException e) {
-                    try {
-                        throw new InterruptedException();
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
+                    e.printStackTrace();
                 }
             }
         };
-        myThread.start();
+        thread.start();
+    }
+
+    @Override
+    public Thread getThread() {
+        return thread;
     }
 }

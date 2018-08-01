@@ -21,5 +21,10 @@
     <string name="developer">Developed by: Kwistech</string>
     <string name="save_and_quit">Save and Quit</string>
     <string name="kwistech_logo">Kwistech logo</string>
+    <string name="created_account">Created a new user account!</string>
+    <string name="field_value_range">Field values must be in range of 1 - 100</string>
+    <string name="fill_out_fields">Please fill out all fields!</string>
+    <string name="deleted_user">Deleted user!</string>
+    <string name="checked_in">Successfully checked in!</string>
 
 </resources>

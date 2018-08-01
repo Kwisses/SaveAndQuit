@@ -16,9 +16,17 @@ public interface CheckInContract {
     interface Presenter {
         void init(View view);
 
-        boolean isFieldFull(EditText editText);
+        boolean isStringFull(String string);
 
         boolean allFieldsFull();
+
+        boolean isStringInRange(String string);
+
+        boolean allFieldsInRange();
+
+        boolean isStringInputValid(String string);
+
+        boolean allFieldInputsValid();
 
         void setUserData();
 

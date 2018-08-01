@@ -175,7 +175,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         if(!Arrays.equals(dbHandler.getUserDataFromDatabase(), strArray)) {
             if(context != null) {
-                Toast.makeText(context, "Successfully checked in!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.checked_in, Toast.LENGTH_LONG).show();
             }
 
             updateUser();

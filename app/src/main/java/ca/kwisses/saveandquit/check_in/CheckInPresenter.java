@@ -34,8 +34,8 @@ public class CheckInPresenter implements CheckInContract.Presenter {
     }
 
     @Override
-    public boolean isFieldFull(EditText editText) {
-        if(editText.getText().toString().length() == 0) {
+    public boolean isStringFull(String string) {
+        if(string.length() == 0) {
             return false;
         }
         return true;
@@ -43,9 +43,60 @@ public class CheckInPresenter implements CheckInContract.Presenter {
 
     @Override
     public boolean allFieldsFull() {
-        if(!isFieldFull(checkInField1) ||
-                !isFieldFull(checkInField2 ) ||
-                !isFieldFull(checkInField3)) {
+        if(!isStringFull(checkInField1.getText().toString()) ||
+                !isStringFull(checkInField2.getText().toString()) ||
+                !isStringFull(checkInField3.getText().toString())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isStringInRange(String string) {
+        double fieldValue = Double.parseDouble(string);
+        if(fieldValue >= 1 && fieldValue <= 100) { // hard-coded range
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean allFieldsInRange() {
+        if(!isStringInRange(checkInField1.getText().toString()) ||
+                !isStringInRange(checkInField2.getText().toString()) ||
+                !isStringInRange(checkInField3.getText().toString())) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isStringInputValid(String string) {
+        // If user inputs a space.
+        if(string.length() > 0 && string.indexOf(' ') != -1) {
+            return false;
+        }
+
+        // If user inputs only a period. (".")
+        if(string.length() == 1 && string.indexOf('.') == 0) {
+            return false;
+        }
+
+        // If user inputs a unusable character.
+        if(string.indexOf(',') != -1 ||
+                string.indexOf('-') != -1 ||
+                string.indexOf('_') != -1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean allFieldInputsValid() {
+        if(!isStringInputValid(checkInField1.getText().toString()) ||
+                !isStringInputValid(checkInField2.getText().toString()) ||
+                !isStringInputValid(checkInField3.getText().toString())) {
             return false;
         }
         return true;

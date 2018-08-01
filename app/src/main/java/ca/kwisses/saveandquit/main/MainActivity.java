@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.MvpV
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Deleted user!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.deleted_user, Toast.LENGTH_LONG).show();
 
                 mainPresenter.getDBHandler().deleteUser(user);
                 user = new User(intArray);

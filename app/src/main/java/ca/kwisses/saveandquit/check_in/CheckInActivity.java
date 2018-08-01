@@ -25,13 +25,17 @@ public class CheckInActivity extends AppCompatActivity implements CheckInContrac
         checkInPresenter.init(findViewById(android.R.id.content));
 
         if(checkInPresenter.allFieldsFull()) {
-            Toast.makeText(this, "Created a new user account!", Toast.LENGTH_LONG).show();
-            checkInPresenter.setUserData();
-            checkInPresenter.updateDBHander();
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
+            if(checkInPresenter.allFieldInputsValid() && checkInPresenter.allFieldsInRange()) {
+                Toast.makeText(this, R.string.created_account, Toast.LENGTH_LONG).show();
+                checkInPresenter.setUserData();
+                checkInPresenter.updateDBHander();
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
+            } else {
+                Toast.makeText(this, R.string.field_value_range, Toast.LENGTH_LONG).show();
+            }
         } else {
-            Toast.makeText(this, "Please fill out all fields!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.fill_out_fields, Toast.LENGTH_LONG).show();
         }
     }
 
